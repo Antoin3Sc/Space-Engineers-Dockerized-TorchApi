@@ -1,0 +1,22 @@
+services:
+  se-server:
+    build:
+      context: .         # dossier courant
+      dockerfile: Dockerfile
+    container_name: se
+    restart: unless-stopped
+    volumes:
+      # left side: your docker-host machine
+      # right side: the paths in the image (!!do not change!!)
+      - ./appdata/space-engineers/plugins:/appdata/space-engineers/plugins
+      - ./appdata/space-engineers/instances:/appdata/space-engineers/instances
+      - ./appdata/space-engineers/SpaceEngineersDedicated:/appdata/space-engineers/SpaceEngineersDedicated
+      - ./appdata/space-engineers/steamcmd:/root/.steam
+      - ./appdata/space-engineers/Torch:/appdata/space-engineers/Torch
+    network_mode: host
+    environment:
+      - WINEESYNC=1
+      - WINEFSYNC=1
+      - WINEDEBUG=-all
+      - INSTANCE_NAME=PlopInstance
+      - PUBLIC_IP=1.2.3.4
