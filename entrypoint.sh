@@ -6,6 +6,14 @@ PLUGIN_DIR="/appdata/space-engineers/plugins"
 CONFIG_PATH="${INSTANCES_DIR}/${INSTANCE_NAME}/SpaceEngineers-Dedicated.cfg"
 INSTANCE_IP=$(hostname -I | sed "s= ==g")
 
+TORCH_DIR="/appdata/space-engineers/Torch"
+# Ensure Torch can find the DedicatedServer64 next to itself as expected
+# Torch looks for Z:\\appdata\\space-engineers\\Torch\\DedicatedServer64\\steam_api64.dll
+# Create a symlink if it does not exist
+if [ ! -e "${TORCH_DIR}/DedicatedServer64" ]; then
+  ln -s "${GAME_DIR}/DedicatedServer64" "${TORCH_DIR}/DedicatedServer64"
+fi
+
 
 echo "-------------------------------INSTALL & UPDATE------------------------------"
 /usr/games/steamcmd +force_install_dir ${GAME_DIR} +login anonymous +@sSteamCmdForcePlatformType windows +app_update 298740 +quit
