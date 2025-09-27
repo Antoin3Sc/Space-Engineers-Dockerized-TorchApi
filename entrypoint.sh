@@ -52,11 +52,29 @@ echo "SAVE_PATH=$SAVE_PATH"
 ## END UPDATES ##
 wine --version
 echo "----------------------------------START GAME---------------------------------"
+
+
+
+
+
+
+# Ensure Torch sees game directories where it expects them
+TORCH_DIR="/appdata/space-engineers/Torch"
+if [ ! -e "${TORCH_DIR}/DedicatedServer64" ]; then
+  ln -s "${GAME_DIR}/DedicatedServer64" "${TORCH_DIR}/DedicatedServer64"
+fi
+if [ ! -e "${TORCH_DIR}/Content" ]; then
+  ln -s "${GAME_DIR}/Content" "${TORCH_DIR}/Content"
+fi
+
+
+
+
+
 # mkdir first to fix possible no such file or directory on rm
 mkdir -p ${INSTANCES_DIR}/${INSTANCE_NAME}
-rm ${INSTANCES_DIR}/${INSTANCE_NAME}/*.log
 cd ${GAME_DIR}/DedicatedServer64/
-xvfb-run -a wine64 Z:\\appdata\\space-engineers\\Torch\\Torch.Server.exe -path Z:\\appdata\\space-engineers\\instances\\${INSTANCE_NAME} -ip ${PUBLIC_IP} -autostart -autoclose
+xvfb-run -a wine64 Z:\\appdata\\space-engineers\\Torch\\Torch.Server.exe -autostart 
 echo "-----------------------------------END GAME----------------------------------"
 sleep 1
 echo "-----------------------------------BYE !!!!----------------------------------"

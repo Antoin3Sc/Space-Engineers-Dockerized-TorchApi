@@ -19,4 +19,4 @@ services:
       - WINEFSYNC=1
       - WINEDEBUG=-all
       - INSTANCE_NAME=PlopInstance
-      - PUBLIC_IP=1.2.3.4
+      - PUBLIC_IP=0.0.0.0
